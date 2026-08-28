@@ -2,3 +2,6 @@
 
 *.enc
 .pepper
+settings.json
+safetynet.txt
+.safetynet

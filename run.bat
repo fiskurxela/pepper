@@ -9,5 +9,5 @@ if %errorlevel% neq 0 (
 )
 node pepper.js
 echo.
-echo Bye bye! (Press any key to exit.)
+echo Bye bye! (Press any key to exit.) // PEPPER // @fiskurxela
 pause >nul
