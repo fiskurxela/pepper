@@ -173,7 +173,12 @@ function decrypt() {
     
                 if (!entry.name.endsWith('.enc')) continue;   // skip non-encrypted files
 
-                try {
+                if (fs.statSync(fullPath).size === 0){
+                    console.log('Error: File is empty');
+                    console.log('Please delete or move this file out of this folder: ' + fullPath);
+                    failCounter++;
+                    continue;
+                }
     
                 const ironFist = fs.readFileSync(fullPath); //file -> one Buffer
                 const iv = ironFist.slice(0, 12); 
@@ -181,14 +186,6 @@ function decrypt() {
                 const encrypted = ironFist.slice(28); 
                 const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
                 decipher.setAuthTag(authTag);
-
-                }
-
-                catch (err) {
-                    console.log('Error mid decryption. Possibly due to trying to decrypt a manually created .enc file.');
-                    console.log('Please delete or move this file out of the folder: ', fullPath);
-                    process.exit(1);
-                }
     
                 try {
                     const decrypted = Buffer.concat([decipher.update(encrypted), decipher.final()]);
