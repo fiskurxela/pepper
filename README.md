@@ -2,7 +2,7 @@
 
 by xela (`@fiskurxela`) 🐟
 
-# v1.1.1
+# v1.1.2
 
 ### This entire project requires `Node.js` to work, you can download it [here](https://nodejs.org) if you don't already have it.
 

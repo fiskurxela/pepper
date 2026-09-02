@@ -4,6 +4,7 @@
 
 | Version | Description | Date |
 |--------|-------------|------|
+| [v1.1.2](#u4) | Style/Output update | 2nd September 2026 |
 | [v1.1.1](#u3) | Fixed severe issue | 28th August 2026 |
 | [v1.1.0](#u2) | Added safety net | 28th August 2026 |
 | [v1.0.0](#u1) | First version! | 14th August 2026 |
@@ -11,10 +12,19 @@
 
 <hr></hr>
 
-<h2 id="u3">v1.1.1</h2> 
+<h2 id="u4">v1.1.2</h2> 
 
 [Back to Table of Contents](#table)
 || This is the most recent commit.
+
+Moved the Safety Net key so that way it prints at the bottom of encryption instead of at the top before all of the "Encrypted: file" lines.
+
+I also changed the `1 | Safety net: true/false` to say `On, Active`, or `On, not Active`, or `Off` rather than true or false.
+
+<h2 id="u3">v1.1.1</h2> 
+
+[Back to Table of Contents](#table)
+|| [Link to commit](https://github.com/fiskurxela/pepper/commit/6261234b372ae8f00b47b6a3e05e574d8b0bb3dd)
 
 Fixed a severe issue. Try-Catch that was added in the decrypt function in [v1.1.0](#u2) prevented users from decrypting anything even if there was nothing wrong with the file. (It made a value undefined while decrypting)
 

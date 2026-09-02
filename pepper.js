@@ -8,6 +8,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 
 let pepper; //this is the salt lol is just a joke
+let recoverykey;
 
 const Mode = {
     ENCRYPT: 'e',
@@ -18,6 +19,7 @@ const Mode = {
 };
 
 let mode = '';
+let snstat = '';
 
 let settings = { safetynet: false };
 loadSettings();
@@ -122,6 +124,7 @@ function encrypt() {
                 if (entry.name === 'README.md') continue;
                 if (entry.name === '.gitignore') continue;
                 if (entry.name.startsWith('.git')) continue;
+                if (entry.name === 'Excel.lnk') continue;    //ignore this REMOVE BEFORE PUSHING
     
                 const plainText = fs.readFileSync(fullPath); //buffer!
                 const iv = crypto.randomBytes(12);
@@ -138,6 +141,12 @@ function encrypt() {
         }
         
         walk('.');
+
+        if (safetynet){
+            console.log('!! SAFETYNET KEY !!');
+            console.log(recoverykey);
+            console.log('!! SAVE THIS SOMEWHERE SAFE. THIS IS THE ONLY TIME YOU WILL SEE THIS. !!');
+        }
         console.log('Encryption process completed. Encrypted', counter, 'files.');
         console.log();
     });
@@ -405,7 +414,7 @@ function createsafetynet(actualPassword){
         console.log('Password deleted.'); 
     }
 
-    const recoverykey = crypto.randomBytes(8).toString('hex');
+    recoverykey = crypto.randomBytes(8).toString('hex');
 
     const chilipepper = crypto.randomBytes(16);
     const housekey = crypto.scryptSync(recoverykey, chilipepper, 32);
@@ -417,9 +426,6 @@ function createsafetynet(actualPassword){
 
     fs.writeFileSync('.safetynet', Buffer.concat([chilipepper, fourth, authTag, encryptedPassword]));
 
-    console.log('!! SAFETYNET KEY !!');
-    console.log(recoverykey);
-    console.log('!! SAVE THIS SOMEWHERE SAFE. THIS IS THE ONLY TIME YOU WILL SEE THIS. !!');
 }
 
 function main() {
@@ -446,7 +452,21 @@ function main() {
                 console.log('Selected settings.');
                 console.log();
                 console.log('-Settings-');
-                console.log('1 | Safety net: ', safetynet);
+                if (safetynet) {
+
+                    snstat = '';
+
+                    if (fs.existsSync('safetynet.txt') || fs.existsSync('.safetynet')){
+                        snstat = 'On, Active'
+                    }
+                    else {
+                        snstat = 'On, not Active';
+                    }
+                }
+                else {
+                    snstat = 'Off';
+                }
+                console.log('1 | Safety net: ', snstat);
                 osettings();
                 break;
             case Mode.EXIT:
