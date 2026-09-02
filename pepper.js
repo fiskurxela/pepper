@@ -124,7 +124,6 @@ function encrypt() {
                 if (entry.name === 'README.md') continue;
                 if (entry.name === '.gitignore') continue;
                 if (entry.name.startsWith('.git')) continue;
-                if (entry.name === 'Excel.lnk') continue;    //ignore this REMOVE BEFORE PUSHING
     
                 const plainText = fs.readFileSync(fullPath); //buffer!
                 const iv = crypto.randomBytes(12);
