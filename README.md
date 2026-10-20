@@ -2,7 +2,7 @@
 
 by xela (`@fiskurxela`) 🐟
 
-# v1.1.2
+# v1.1.2 || [Changelog](https://github.com/fiskurxela/pepper/blob/main/changelog.md)
 
 ### This entire project requires `Node.js` to work, you can download it [here](https://nodejs.org) if you don't already have it.
 
